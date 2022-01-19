@@ -1,0 +1,41 @@
+# Development related.
+.vscode
+.idea
+.csv
+*.code-workspace
+
+# Compiled sources.
+*.exe
+*.exe~
+*.dll
+#*.so
+*.dylib
+
+# Binaries.
+*.map
+
+# Test binaries (`go test -c`).
+*.test
+
+# Coverage tool output (`go test -coverprofile=cover.out`).
+*.out
+
+# Logs.
+*.log
+
+# Archives.
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# OS generated files.
+.DS_Store
+Thumbs.db
+
+# Files starting with _.
+_*

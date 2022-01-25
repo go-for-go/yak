@@ -9,7 +9,6 @@ import (
 var (
 	InputFile  string
 	OutputFile string
-	PgGo10     bool
 )
 
 func init() {
@@ -17,7 +16,6 @@ func init() {
 	configHelperGen.MarkPersistentFlagRequired("input")
 	configHelperGen.PersistentFlags().StringVarP(&OutputFile, "output", "o", "", "set output file")
 	configHelperGen.MarkPersistentFlagRequired("output")
-	configHelperGen.PersistentFlags().BoolVar(&PgGo10, "pg10", false, "use pg-go 10 version")
 
 	rootCmd.AddCommand(configHelperGen)
 }
@@ -28,14 +26,9 @@ var configHelperGen = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		input := cmd.Flag("input").Value.String()
 		output := cmd.Flag("output").Value.String()
-		pg10, err := cmd.Flags().GetBool("pg10")
-		if err != nil {
-			fmt.Printf("error when get flag pg10, set value as false")
-			pg10 = false
-		}
 
-		g := Generator.Gen{Pg10: pg10}
-		err = g.Run(input, output)
+		g := Generator.Gen{}
+		err := g.Run(input, output)
 		if err != nil {
 			fmt.Printf("%s\n", err)
 			return

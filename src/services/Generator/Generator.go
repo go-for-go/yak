@@ -319,7 +319,7 @@ func (g *Gen) implementPgConnection(path, pathLocal []string, innerTree *toml.Tr
 			return
 		}
 
-		f.Func().Params(jen.Id("s").Id(structPg)).Id(mqFunc).Params().String().BlockFunc(func(g *jen.Group) {
+		f.Func().Params(jen.Id("s").Id(structPg)).Id(pgDsn).Params().String().BlockFunc(func(g *jen.Group) {
 			g.Return(jen.Qual("fmt", "Sprintf").Call(jen.Lit("postgres://%s:%s@%s/%s?sslmode=disable"), jen.Id("user"),
 				jen.Id("pass"), jen.Id("host"), jen.Id("database")))
 		}).Line()

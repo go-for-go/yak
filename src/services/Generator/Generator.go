@@ -16,6 +16,7 @@ const (
 	moduleField   = "module"
 	moduleConst   = "MODULE"
 	pgFunc        = "GetConnection"
+	pgDsn         = "PgDsn"
 	mqFunc        = "Url"
 	defaultMqPort = 5672
 )
@@ -317,6 +318,11 @@ func (g *Gen) implementPgConnection(path, pathLocal []string, innerTree *toml.Tr
 		if err != nil {
 			return
 		}
+
+		f.Func().Params(jen.Id("s").Id(structPg)).Id(mqFunc).Params().String().BlockFunc(func(g *jen.Group) {
+			g.Return(jen.Qual("fmt", "Sprintf").Call(jen.Lit("postgres://%s:%s@%s/%s?sslmode=disable"), jen.Id("user"),
+				jen.Id("pass"), jen.Id("host"), jen.Id("database")))
+		}).Line()
 
 		f.Func().Params(jen.Id("s").Id(structPg)).Id(pgFunc).Params().Op("*").Id("pg.Options").BlockFunc(func(g *jen.Group) {
 			g.Return(jen.Op("&").Id("pg.Options").Values(jen.Dict{

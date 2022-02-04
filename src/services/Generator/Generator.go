@@ -306,8 +306,7 @@ func (g *Gen) implementPgConnection(path, pathLocal []string, innerTree *toml.Tr
 
 			g.Id("sslmode").Op(":=").Lit("disable")
 			if contains(innerTree.Keys(), "sslmode") {
-				g.If(jen.Id("s").Dot("Sslmode").Call()).Block(
-					jen.Id("sslmode").Op("=").Lit("enable"))
+				g.Id("sslmode").Op("=").Id("s").Dot("Sslmode").Call()
 			}
 			g.Return(jen.Qual("fmt", "Sprintf").Call(jen.Lit("postgres://%s:%s@%s/%s?sslmode=%s"), jen.Id("user"),
 				jen.Id("pass"), jen.Id("host"), jen.Id("database"), jen.Id("sslmode")))

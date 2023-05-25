@@ -1,0 +1,12 @@
+module = "test-pj"          # название модуля
+[pg.default]                # pg - директива для определения коннекта к базе данных
+host = "127.0.0.1:1234"     # поля ниже являются обязательными и не должны быть пустыми
+user = "user"
+pass = "password"
+database = "my-db"
+sslmode = "allow"
+[pg.custom]                 # можно определить настройки для подключения к нескольким
+host = "127.0.0.1:1234"     # по принципу [pg._NAME_]
+user = "user"
+pass = "password"
+database = "my-db"
